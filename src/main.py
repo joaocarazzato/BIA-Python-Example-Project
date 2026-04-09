@@ -164,16 +164,38 @@ def student_grade_get():
         student_report()
 
 def print_report1():
+    
+    append_string = ""
+
+    append_string += """=================================
+Report 1: Student Names and Accepted Schools
+=================================
+"""
+
     for i in range(student_quantity):
         print(f"Student: {student_name_list[i]}")
+        append_string += f"Student: {student_name_list[i]} \n"
         print(f"Accepted School: {student_accepted_school_list[i]}")
+        append_string += f"Accepted School: {student_accepted_school_list[i]}\n"
         print("")
+        append_string += "========================\n"
+
+    with open("output/report1.txt", "w") as report_file:
+        report_file.write(append_string)
 
 def print_report2():
     accepted_students = 0
     engineering_students = 0
     business_students = 0
     law_students = 0
+
+    append_string = ""
+
+    append_string += """=================================
+Report 1: Total accepted students and accepted students in each school
+=================================
+"""
+
     for i in student_accepted_school_list:
         accepted_students += 1 if i != "Not accepted" else 0
 
@@ -185,20 +207,40 @@ def print_report2():
             law_students += 1
     
     print(f"Total accepted students: {accepted_students}")
+    append_string += f"Total accepted students: {accepted_students}\n"
     print(f"Total students accepted in the School of Engineering: {engineering_students}")
+    append_string += f"Total students accepted in the School of Engineering: {engineering_students}\n"
     print(f"Total students accepted in the School of Business: {business_students}")
+    append_string += f"Total students accepted in the School of Business: {business_students}\n"
     print(f"Total students accepted in the Law School: {law_students}")
+    append_string += f"Total students accepted in the Law School: {law_students}\n"
+
+    with open("output/report2.txt", "w") as report_file:
+        report_file.write(append_string)
 
 def print_report3():
     not_accepted_students = 0
     for i in student_accepted_school_list:
         not_accepted_students += 1 if i == "Not accepted" else 0
     print(f"Total of not accepted students: {not_accepted_students}")
+    with open("output/report3.txt", "w") as report_file:
+        report_file.write(f"""==================================
+Report 3: Total not accepted students
+==================================
+Total of not accepted students: {not_accepted_students}\n""")
 
 def print_report4():
     mean_engineering_gpa = 0
     mean_business_gpa = 0
     mean_law_gpa = 0
+
+    append_string = ""
+
+    append_string += """=================================
+Report 4: Mean GPA of accepted students in each school
+=================================
+"""
+
     for i in student_accepted_school_list:
         if i == "School of Engineering":
             mean_engineering_gpa += student_gpa_list[student_accepted_school_list.index(i)]
@@ -212,8 +254,14 @@ def print_report4():
     mean_law_gpa /= student_accepted_school_list.count("Law School")
 
     print(f"Mean GPA of students accepted in the School of Engineering: {mean_engineering_gpa:.2f}")
+    append_string += f"Mean GPA of students accepted in the School of Engineering: {mean_engineering_gpa:.2f}\n"
     print(f"Mean GPA of students accepted in the School of Business: {mean_business_gpa:.2f}")
+    append_string += f"Mean GPA of students accepted in the School of Business: {mean_business_gpa:.2f}\n"
     print(f"Mean GPA of students accepted in the Law School: {mean_law_gpa:.2f}")
+    append_string += f"Mean GPA of students accepted in the Law School: {mean_law_gpa:.2f}\n"
+
+    with open("output/report4.txt", "w") as report_file:
+        report_file.write(append_string)
 
 root = tkinter.Tk()
 root.title("Humber College Login")
